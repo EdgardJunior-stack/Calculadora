@@ -601,13 +601,13 @@ Principais aprendizados:
 1. Clone o repositório:
 
 ```bash
-git clone URL-DO-SEU-REPOSITORIO
+git clone https://github.com/EdgardJunior-stack/Calculadora.git
 ```
 
 2. Entre na pasta:
 
 ```bash
-cd calculadora-javascript
+cd calculadora
 ```
 
 3. Abra o arquivo `index.html` no navegador.
@@ -645,7 +645,7 @@ Depois da publicação, adicione o link na seção **Site** deste README.
 
 ## 👨‍💻 Autor
 
-Desenvolvido como projeto de estudo e evolução em desenvolvimento Front-end.
+Desenvolvido por Edgard Junior como projeto de estudo e evolução em desenvolvimento Front-end.
 
 **Tecnologias estudadas:** HTML • CSS • JavaScript
 
