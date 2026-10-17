@@ -1,0 +1,832 @@
+/* ==========================================================
+   01. CONFIGURAÇÕES INICIAIS
+========================================================== */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* ==========================================================
+   02. VARIÁVEIS DE DESIGN
+========================================================== */
+
+:root {
+    --cor-fundo: #0b0c0f;
+
+    --cor-superficie:
+        rgba(255, 255, 255, 0.055);
+
+    --cor-superficie-forte:
+        rgba(255, 255, 255, 0.085);
+
+    --cor-borda:
+        rgba(255, 255, 255, 0.12);
+
+    --cor-texto: #f5f5f2;
+    --cor-texto-secundario: #969b9f;
+
+    --cor-destaque: #d7ff64;
+    --cor-destaque-hover: #c5ef4d;
+
+    --cor-erro: #ff7070;
+
+    --raio-grande: 32px;
+    --raio-medio: 20px;
+    --raio-pequeno: 13px;
+
+    --sombra:
+        0 30px 100px rgba(0, 0, 0, 0.45);
+
+    --transicao:
+        250ms cubic-bezier(.2, .8, .2, 1);
+}
+
+
+/* ==========================================================
+   03. CONFIGURAÇÕES GLOBAIS
+========================================================== */
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+
+    overflow-x: hidden;
+
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    color: var(--cor-texto);
+
+    background:
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(215, 255, 100, 0.08),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 90% 80%,
+            rgba(106, 90, 255, 0.08),
+            transparent 30%
+        ),
+        var(--cor-fundo);
+}
+
+
+/* ==========================================================
+   04. GRID DECORATIVO DO BACKGROUND
+========================================================== */
+
+body::after {
+    content: "";
+
+    position: fixed;
+    inset: 0;
+
+    pointer-events: none;
+
+    background-image:
+        linear-gradient(
+            rgba(255, 255, 255, 0.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.025) 1px,
+            transparent 1px
+        );
+
+    background-size: 48px 48px;
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            black,
+            transparent 90%
+        );
+
+    z-index: -3;
+}
+
+
+/* ==========================================================
+   05. GLOW INTERATIVO DO MOUSE
+========================================================== */
+
+body::before {
+    content: "";
+
+    position: fixed;
+
+    left: var(--mouse-x, 50%);
+    top: var(--mouse-y, 50%);
+
+    width: 420px;
+    height: 420px;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(215, 255, 100, 0.12),
+            transparent 68%
+        );
+
+    transform: translate(-50%, -50%);
+
+    filter: blur(22px);
+
+    z-index: -2;
+}
+
+
+/* ==========================================================
+   06. CABEÇALHO
+========================================================== */
+
+.cabecalho {
+    width: min(1200px, calc(100% - 48px));
+
+    margin-inline: auto;
+
+    padding:
+        clamp(40px, 7vw, 90px)
+        0
+        30px;
+
+    animation:
+        entradaPagina 800ms ease both;
+}
+
+
+
+.cabecalho h1 {
+    max-width: 850px;
+
+    font-size:
+        clamp(3rem, 9vw, 7.5rem);
+
+    font-weight: 700;
+
+    line-height: 0.86;
+
+    letter-spacing: -0.07em;
+}
+
+.cabecalho h1 span {
+    color: var(--cor-destaque);
+}
+
+.cabecalho__descricao {
+    max-width: 560px;
+
+    margin-top: 30px;
+
+    color: var(--cor-texto-secundario);
+
+    font-size:
+        clamp(1rem, 2vw, 1.15rem);
+
+    line-height: 1.7;
+}
+
+
+/* ==========================================================
+   07. CONTEÚDO PRINCIPAL
+========================================================== */
+
+.conteudo-principal {
+    flex: 1;
+
+    width: 100%;
+
+    padding:
+        20px
+        24px
+        70px;
+
+    display: flex;
+    justify-content: center;
+
+    animation:
+        entradaPagina 900ms
+        100ms
+        ease
+        both;
+}
+
+
+/* ==========================================================
+   08. CARD PRINCIPAL DA CALCULADORA
+========================================================== */
+
+.calculadora {
+    width: 100%;
+    max-width: 780px;
+
+    padding:
+        clamp(24px, 5vw, 46px);
+
+    position: relative;
+
+    border:
+        1px solid var(--cor-borda);
+
+    border-radius:
+        var(--raio-grande);
+
+    background:
+        var(--cor-superficie);
+
+    backdrop-filter:
+        blur(24px);
+
+    -webkit-backdrop-filter:
+        blur(24px);
+
+    box-shadow:
+        var(--sombra);
+}
+
+.calculadora::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    padding: 1px;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.20),
+            transparent 35%,
+            transparent 70%,
+            rgba(215, 255, 100, 0.15)
+        );
+
+    pointer-events: none;
+
+    mask:
+        linear-gradient(#fff 0 0)
+        content-box,
+        linear-gradient(#fff 0 0);
+
+    mask-composite: exclude;
+}
+
+
+/* ==========================================================
+   09. TOPO DO CARD
+========================================================== */
+
+.calculadora__topo {
+    margin-bottom: 34px;
+}
+
+.calculadora__numero {
+    margin-bottom: 10px;
+
+    color:
+        var(--cor-texto-secundario);
+
+    font-size: 0.72rem;
+
+    letter-spacing: 0.14em;
+}
+
+.calculadora__topo h2 {
+    font-size:
+        clamp(1.9rem, 5vw, 3rem);
+
+    letter-spacing: -0.04em;
+}
+
+
+/* ==========================================================
+   10. FORMULÁRIO
+========================================================== */
+
+.calculadora__formulario fieldset {
+    border: 0;
+}
+
+.campo {
+    margin-bottom: 22px;
+}
+
+.campo label {
+    display: block;
+
+    margin-bottom: 9px;
+
+    color:
+        var(--cor-texto-secundario);
+
+    font-size: 0.85rem;
+
+    font-weight: 600;
+
+    letter-spacing: 0.02em;
+}
+
+
+/* ==========================================================
+   11. INPUTS E SELECT
+========================================================== */
+
+.campo input,
+.campo select {
+    width: 100%;
+
+    min-height: 58px;
+
+    padding:
+        0
+        17px;
+
+    border:
+        1px solid var(--cor-borda);
+
+    border-radius:
+        var(--raio-pequeno);
+
+    outline: none;
+
+    background:
+        rgba(255, 255, 255, 0.035);
+
+    color:
+        var(--cor-texto);
+
+    font:
+        inherit;
+
+    transition:
+        border-color var(--transicao),
+        background var(--transicao),
+        box-shadow var(--transicao),
+        transform var(--transicao);
+}
+
+.campo input::placeholder {
+    color:
+        rgba(255, 255, 255, 0.28);
+}
+
+.campo input:hover,
+.campo select:hover {
+    border-color:
+        rgba(255, 255, 255, 0.22);
+
+    background:
+        rgba(255, 255, 255, 0.055);
+}
+
+
+/* ==========================================================
+   12. ESTADO DE FOCO
+========================================================== */
+
+.campo input:focus,
+.campo select:focus {
+    border-color:
+        var(--cor-destaque);
+
+    background:
+        rgba(255, 255, 255, 0.065);
+
+    box-shadow:
+        0 0 0 4px
+        rgba(215, 255, 100, 0.08);
+
+    transform:
+        translateY(-1px);
+}
+
+.campo select option {
+    background:
+        #17191c;
+
+    color:
+        var(--cor-texto);
+}
+
+
+/* ==========================================================
+   13. BOTÃO PRINCIPAL
+========================================================== */
+
+.botao-calcular {
+    width: 100%;
+
+    min-height: 62px;
+
+    margin-top: 8px;
+
+    padding:
+        0
+        20px;
+
+    border: 0;
+
+    border-radius:
+        var(--raio-pequeno);
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    overflow: hidden;
+
+    position: relative;
+
+    background:
+        var(--cor-destaque);
+
+    color: #10110d;
+
+    font: inherit;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition:
+        transform var(--transicao),
+        background var(--transicao),
+        box-shadow var(--transicao);
+}
+
+.botao-calcular::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: -120%;
+
+    width: 70%;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.55),
+            transparent
+        );
+
+    transform:
+        skewX(-20deg);
+
+    transition:
+        left 500ms ease;
+}
+
+.botao-calcular:hover {
+    background:
+        var(--cor-destaque-hover);
+
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        0 18px 45px
+        rgba(215, 255, 100, 0.16);
+}
+
+.botao-calcular:hover::before {
+    left: 150%;
+}
+
+.botao-calcular:active {
+    transform:
+        translateY(0);
+}
+
+.botao-calcular:focus-visible {
+    outline:
+        3px solid white;
+
+    outline-offset:
+        4px;
+}
+
+.botao-calcular__icone {
+    font-size: 1.4rem;
+
+    transition:
+        transform var(--transicao);
+}
+
+.botao-calcular:hover
+.botao-calcular__icone {
+    transform:
+        translateX(5px);
+}
+
+
+/* ==========================================================
+   14. RESULTADO
+========================================================== */
+
+.resultado {
+    margin-top: 28px;
+
+    padding:
+        clamp(20px, 4vw, 30px);
+
+    border:
+        1px solid var(--cor-borda);
+
+    border-radius:
+        var(--raio-medio);
+
+    background:
+        var(--cor-superficie-forte);
+}
+
+.resultado__cabecalho {
+    margin-bottom: 18px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    color:
+        var(--cor-texto-secundario);
+}
+
+.resultado__cabecalho h3 {
+    font-size: 0.75rem;
+
+    font-weight: 600;
+
+    letter-spacing: 0.16em;
+
+    text-transform: uppercase;
+}
+
+.resultado__valor {
+    display: block;
+
+    min-height: 1.1em;
+
+    font-size:
+        clamp(2.3rem, 9vw, 5rem);
+
+    font-weight: 700;
+
+    line-height: 1;
+
+    letter-spacing: -0.06em;
+
+    overflow-wrap: anywhere;
+}
+
+
+/* ==========================================================
+   15. ESTADOS DO RESULTADO
+========================================================== */
+
+.resultado-sucesso {
+    color:
+        var(--cor-destaque);
+}
+
+.resultado-erro {
+    color:
+        var(--cor-erro);
+
+    font-size:
+        clamp(1.4rem, 5vw, 2.4rem);
+}
+
+
+/* ==========================================================
+   16. ANIMAÇÃO DO RESULTADO
+========================================================== */
+
+.animar-resultado {
+    animation:
+        entradaResultado
+        350ms
+        ease;
+}
+
+@keyframes entradaResultado {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(12px)
+            scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+
+}
+
+
+/* ==========================================================
+   17. ANIMAÇÃO DE ENTRADA DA PÁGINA
+========================================================== */
+
+@keyframes entradaPagina {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(28px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+
+}
+
+
+/* ==========================================================
+   18. RODAPÉ
+========================================================== */
+
+.rodape {
+    width:
+        min(
+            1200px,
+            calc(100% - 48px)
+        );
+
+    margin-inline: auto;
+
+    padding:
+        25px
+        0
+        40px;
+
+    border-top:
+        1px solid var(--cor-borda);
+
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    color:
+        var(--cor-texto-secundario);
+
+    font-size: 0.78rem;
+}
+
+
+/* ==========================================================
+   19. ACESSIBILIDADE
+========================================================== */
+
+.sr-only {
+    position: absolute;
+
+    width: 1px;
+    height: 1px;
+
+    padding: 0;
+    margin: -1px;
+
+    overflow: hidden;
+
+    clip: rect(0, 0, 0, 0);
+
+    white-space: nowrap;
+
+    border: 0;
+}
+
+
+/* ==========================================================
+   20. RESPONSIVIDADE - TABLETS
+========================================================== */
+
+@media (max-width: 768px) {
+
+    .cabecalho {
+        width:
+            calc(100% - 32px);
+    }
+
+    .conteudo-principal {
+        padding-inline:
+            16px;
+    }
+
+    .rodape {
+        width:
+            calc(100% - 32px);
+
+        flex-direction:
+            column;
+    }
+
+}
+
+
+/* ==========================================================
+   21. RESPONSIVIDADE - CELULARES
+========================================================== */
+
+@media (max-width: 520px) {
+
+    .cabecalho {
+        padding-top:
+            38px;
+    }
+
+    .cabecalho h1 {
+        font-size:
+            clamp(3rem, 17vw, 4.5rem);
+    }
+
+    .calculadora {
+        padding: 22px;
+
+        border-radius: 24px;
+    }
+
+    .resultado {
+        padding: 20px;
+    }
+
+}
+
+
+/* ==========================================================
+   22. ACESSIBILIDADE - REDUÇÃO DE MOVIMENTO
+========================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+
+        animation-duration:
+            0.01ms !important;
+
+        animation-iteration-count:
+            1 !important;
+
+        transition-duration:
+            0.01ms !important;
+    }
+
+}
+
+
+/* ==========================================================
+   23. DISPOSITIVOS SEM MOUSE
+========================================================== */
+
+@media (pointer: coarse) {
+
+    body::before {
+        display: none;
+    }
+
+}
